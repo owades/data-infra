@@ -22,8 +22,9 @@ jupyterhub:
     extraEnv:
       CALITP_SERVICE_KEY_PATH: /usr/local/secrets/service-key.json
   scheduling:
-    userScheduler:
-      enabled: false
+    userPods:
+      nodeAffinity:
+        matchNodePurpose: require
   hub:
     db:
       pvc:
