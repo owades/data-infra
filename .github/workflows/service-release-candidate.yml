@@ -15,7 +15,7 @@ env:
 
 jobs:
   build-release-candidate:
-    if: ${{ github.repository == 'cal-itp/data-infra' && ( github.ref == 'refs/heads/main' || startswith('refs/tags/candidates/', github.ref) ) }}
+    if: ${{ github.repository == 'cal-itp/data-infra' && ( github.ref == 'refs/heads/main' || startswith(github.ref, 'refs/tags/candidates/') ) }}
     runs-on: ubuntu-latest
     steps:
 
