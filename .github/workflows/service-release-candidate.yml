@@ -18,6 +18,12 @@ jobs:
     if: ${{ github.repository == 'cal-itp/data-infra' && ( github.ref == 'refs/heads/main' || startswith(github.ref, 'refs/tags/candidates/') ) }}
     runs-on: ubuntu-latest
     steps:
+
+    - name: Check out repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
     - name: 'Build branch: releases/candidate'
       run: |
 
