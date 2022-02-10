@@ -36,9 +36,9 @@ jobs:
         # branch setup
         if [[ $(git ls-remote origin refs/heads/releases/candidate) ]] && [[ ! $(git show-ref refs/remotes/origin/releases/candidate) ]]; then
           git fetch origin releases/candidate
-        fi
-        if [[ ! $(git show-ref refs/heads/releases/candidate) ]]; then
-          git branch releases/candidate origin/releases/candidate
+          if [[ ! $(git show-ref refs/heads/releases/candidate) ]]; then
+            git branch releases/candidate origin/releases/candidate
+          fi
         fi
 
         # build & push
