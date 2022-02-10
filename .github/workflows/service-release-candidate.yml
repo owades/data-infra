@@ -10,7 +10,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
-  HAB_LICENSE: accept-no-persist
+  BIO_RELEASE: 1.6.372
 
 
 jobs:
@@ -22,8 +22,10 @@ jobs:
       run: |
 
         # dependency setup
-        curl -s https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh | sudo bash
-        sudo hab pkg install jarvus/hologit
+        curl -LO "https://github.com/biome-sh/biome/releases/download/v1.6.372/bio-$BIO_RELEASE-x86_64-linux.tar.gz"
+        tar xzvf "bio-$BIO_RELEASE-x86_64-linux.tar.gz"
+        sudo mv bio /usr/local/bin/bio
+        sudo bio pkg install jarvus/hologit
 
         # branch setup
         if [[ $(git ls-remote origin refs/heads/releases/candidate) ]] && [[ ! $(git show-ref refs/remotes/origin/releases/candidate) ]]; then
