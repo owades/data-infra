@@ -1,0 +1,27 @@
+name: Build release candidate
+
+on:
+  push:
+    paths:
+      - '.holo/**'
+      - 'kubernetes/apps/**'
+      - 'kubernetes/system/**'
+
+
+env:
+  GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+  HAB_LICENSE: accept-no-persist
+
+
+jobs:
+  build-release-candidate:
+    if: ${{ github.repository == 'cal-itp/data-infra' && ( github.ref == 'refs/heads/main' || startswith('refs/tags/candidates/', github.ref) ) }}
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: 'Build branch: releases/candidate'
+      uses: JarvusInnovations/hologit@actions/projector/v1
+      with:
+        holobranch: releases/candidate
+        commit-to: releases/candidate
+        commit-message: "Release candidate: ${{ github.ref }}"
