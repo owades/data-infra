@@ -18,10 +18,21 @@ jobs:
     if: ${{ github.repository == 'cal-itp/data-infra' && ( github.ref == 'refs/heads/main' || startswith(github.ref, 'refs/tags/candidates/') ) }}
     runs-on: ubuntu-latest
     steps:
-
     - name: 'Build branch: releases/candidate'
-      uses: JarvusInnovations/hologit@actions/projector/v1
-      with:
-        holobranch: releases/candidate
-        commit-to: releases/candidate
-        commit-message: "Release candidate: ${{ github.ref }}"
+      run: |
+
+        # dependency setup
+        curl -s https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh | sudo bash
+        hab pkg install jarvus/hologit
+
+        # branch setup
+        if [[ $(git ls-remote origin refs/heads/releases/candidate) ]] && [[ ! $(git show-ref refs/remotes/origin/releases/candidate) ]]; then
+          git fetch origin releases/candidate
+        fi
+        if [[ ! $(git show-ref refs/heads/releases/candidate) ]]; then
+          git branch releases/candidate origin/releases/candidate
+        fi
+
+        # build & push
+        git holo project releases/candidate --commit-to releases/candidate --commit-message "Release candidate: $(basename "$GITHUB_REF")"
+        git push origin releases/candidate
