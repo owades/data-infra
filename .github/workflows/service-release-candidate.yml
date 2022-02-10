@@ -32,6 +32,7 @@ jobs:
         tar xzvf "bio-$BIO_RELEASE-x86_64-linux.tar.gz"
         sudo mv bio /usr/local/bin/bio
         sudo bio pkg install jarvus/hologit
+        sudo bio pkg binlink jarvus/hologit
 
         # branch setup
         if [[ $(git ls-remote origin refs/heads/releases/candidate) ]] && [[ ! $(git show-ref refs/remotes/origin/releases/candidate) ]]; then
