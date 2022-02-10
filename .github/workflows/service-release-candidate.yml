@@ -23,7 +23,7 @@ jobs:
 
         # dependency setup
         curl -s https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh | sudo bash
-        hab pkg install jarvus/hologit
+        sudo hab pkg install jarvus/hologit
 
         # branch setup
         if [[ $(git ls-remote origin refs/heads/releases/candidate) ]] && [[ ! $(git show-ref refs/remotes/origin/releases/candidate) ]]; then
