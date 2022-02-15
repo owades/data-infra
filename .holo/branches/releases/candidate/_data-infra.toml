@@ -1,0 +1,3 @@
+[holomapping]
+files = [ "ci/**", "kubernetes/**", ".github/workflows/service-*" ]
+before = "*"
